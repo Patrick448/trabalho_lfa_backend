@@ -24,14 +24,10 @@
                     Select file
                 </label>
                 <div class="automata-btn">
-                    <label>AFD
-                        <input type="checkbox" checked="checked">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label>AFN
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
+                    <input type="radio" id="afd-btn" name="automata" value="afd">
+                    <label for="afd-btn">AFD</label><br>
+                    <input type="radio" id="afn-btn" name="automata" value="afn">
+                    <label for="afn-btn">AFN</label><br>  
                 </div>
                 <button class="submit-automata-btn" type="submit">Carregar</button>
             </div>

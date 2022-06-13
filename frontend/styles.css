@@ -73,6 +73,10 @@ input#docpicker {
     margin: 20px auto 40px;
 }
 
+.automata-doc .automata-btn input[type="radio"] {
+    display: none;
+}
+
 .automata-doc .automata-btn button {
     background-color: #F5F5F5;
     border-radius: 40px;
