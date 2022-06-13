@@ -18,13 +18,9 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/afd")
+@RequestMapping(value = "/afn")
 public class AFNController {
 
-    public static class AFDRequest{
-        public String afdDef;
-        public String word;
-    }
 
     private HashMap<String, AFD> userData = new HashMap<String, AFD>();
 
@@ -58,18 +54,6 @@ public class AFNController {
         return ResponseEntity.ok("Testando 1 2 3");
     }
 
-    @PostMapping(value="/test2", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> test2(@RequestBody AFDRequest afdRequest){
-        AFD a = new AFD();
-        try {
-            a.lerString(afdRequest.afdDef);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
-        System.out.println("Test");
-        return ResponseEntity.ok(a.toString() + "\n Aceita: " + a.Aceita(afdRequest.word));
-    }
 
     @PostMapping(value="/load-afd", consumes = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> loadAFD(@RequestBody String body, @CookieValue String user){
@@ -98,63 +82,4 @@ public class AFNController {
     }
 
 
-    /*@GetMapping
-    public ResponseEntity<List<ContratoDTO>> findAll(Pageable pageable){
-        System.out.println("Returning contracts");
-
-        List<ContratoDTO> list = service.findAll();
-        return ResponseEntity.ok(list);
-    }
-
-    @GetMapping(value="/current-user")
-    public ResponseEntity<List<ContratoDTO>> findAllCurrentUser(@AuthenticationPrincipal String username){
-        System.out.println("Returning services of this user");
-        List<ContratoDTO> list = service.findContractsByUserEmail(username);
-        return ResponseEntity.ok(list);
-    }
-
-    @PostMapping(value = "/register",
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity resgisterService(@RequestBody ContratoDTO contratoDTO, @AuthenticationPrincipal String username){
-
-        Contrato contrato = new Contrato(contratoDTO);
-        Usuario contratante = new Usuario(usuarioService.findById(contratoDTO.getContratanteId()));
-        Usuario prestador = new Usuario(usuarioService.findById(contratoDTO.getPrestadorId()));
-        Servico servico = new Servico(servicoService.findById(contratoDTO.getServicoId()));
-        contrato.setContratante(contratante);
-        contrato.setPrestador(prestador);
-        contrato.setServico(servico);
-
-        try {
-            service.save(contrato);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
-
-        return ResponseEntity.ok().build();
-    }*/
-
-
-/*
-    @PutMapping(value = "/register",
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity resgisterService(@RequestBody ServicoDTO servicoDTO, @AuthenticationPrincipal String username){
-
-        Servico servicoFromDTO = new Servico(servicoDTO);
-        UsuarioDTO anuncianteDTO = usuarioService.findByEmail(username);
-        servicoFromDTO.setAnunciante(new Usuario(anuncianteDTO));
-
-
-        try {
-            service.save(servicoFromDTO);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
-
-        return ResponseEntity.ok().build();
-    }*/
 }
