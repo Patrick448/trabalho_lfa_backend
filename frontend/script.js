@@ -35,6 +35,12 @@ function handleFileSelection() {
 fileChooser.addEventListener('change', handleFileSelection, false);
     
 
+function handleRadioButton(e) {
+    console.log(e);
+}
+
+
+
 // async function fetchData() {
 //     await fetch(data.hostname + data.create_uuid)
 //     .then(response => response.json())
