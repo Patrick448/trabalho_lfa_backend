@@ -1,0 +1,6 @@
+{
+    "hostname":"http://177.98.233.75:8080",
+    "load":"/afd/load-afd",
+    "accepts": "/afd/accepts/",
+    "create_uuid": "/user/create-uuid"
+}

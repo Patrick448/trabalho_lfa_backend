@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/afd")
-public class AFDController {
+public class AFNController {
 
     public static class AFDRequest{
         public String afdDef;
