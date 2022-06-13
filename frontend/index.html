@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="header">
+                <img src="img/lfa.png">
+                <p>Faça leitura e verficação de palavras em um AFD ou AFN</p>
+            </div>
+            <div class="automata-doc">
+                <label class="docpicker-label">
+                    <input type="file" id="docpicker" accept="text/xml"/>
+                    Select file
+                </label>
+                <div class="automata-btn">
+                    <button type="button">AFD</button>
+                    <button type="button">AFN</button>
+                </div>
+                <button class="submit-automata-btn" type="submit">Carregar</button>
+            </div>
+            <div class="automata-wording">
+                <input type="text" id="automata-word" placeholder="Type word"> 
+                <div class="automata-response accepts-lfa">Aceita/Não Aceita</div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="automata-tupla">
+                <p>5-tupla:</p>
+                <div></div>
+            </div>
+            <div class="automata-graph">
+                <p>Gráfico:</p>
+                <div></div>
+            </div>
+            <div class="credits">by Patrick Carvalho - Vitória Natália - Wellington Pereira ❤️
+            </div>
+        </div>
+    </div>
+</body>
+</html>
