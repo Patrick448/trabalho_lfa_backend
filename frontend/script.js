@@ -3,7 +3,7 @@ import data from './endpoints.json' assert {type: 'json'};
 //hostname + create-uuid
 //load
 //accepts
-console.log(data.hostname);
+console.log(data.create_uuid);
 
 
 var fileChooser = document.getElementById('docpicker');
@@ -12,8 +12,6 @@ function parseTextAsXml(text) {
     var parser = new DOMParser(),
         xmlDom = parser.parseFromString(text, "text/xml");
         console.log(xmlDom)
-
-    //now, extract items from xmlDom and assign to appropriate text input fields
 }
 
 function waitForTextReadComplete(reader) {
