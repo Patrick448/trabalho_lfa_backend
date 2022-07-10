@@ -71,12 +71,12 @@ public class AFDController {
         return ResponseEntity.ok(a.toString() + "\n Aceita: " + a.Aceita(afdRequest.word));
     }
 
-    @PostMapping(value="/load-afd", consumes = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> loadAFD(@RequestBody String body, @CookieValue String user){
+    @PostMapping(value="/load-afd/{uuid}", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> loadAFD(@RequestBody String body, /*@CookieValue String user, */@PathVariable String uuid){
         AFD afd = new AFD();
         try {
             afd.lerString(body);
-            userData.put(user, afd);
+            userData.put(uuid, afd);
             userData.entrySet().forEach(entry -> {
                 System.out.println(entry.getKey() + " " + entry.getValue());
             });
