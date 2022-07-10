@@ -71,8 +71,8 @@ public class AFDController {
         return ResponseEntity.ok(a.toString() + "\n Aceita: " + a.Aceita(afdRequest.word));
     }
 
-    @PostMapping(value="/load-afd/{uuid}", consumes = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> loadAFD(@RequestBody String body, /*@CookieValue String user, */@PathVariable String uuid){
+    @PostMapping(value="/load-afd", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> loadAFD(@RequestBody String body, /*@CookieValue String user, */@RequestParam String uuid){
         AFD afd = new AFD();
         try {
             afd.lerString(body);
@@ -88,11 +88,11 @@ public class AFDController {
         return ResponseEntity.ok(afd.toString());
     }
 
-    @GetMapping(value="/accepts/{word}")
-    public ResponseEntity<Boolean> acceptsWord(@PathVariable String word, @CookieValue("user") String user){
-        AFD afd = userData.get(user);
+    @GetMapping(value="/accepts")
+    public ResponseEntity<Boolean> acceptsWord(@RequestParam String word,@RequestParam String uuid /*@CookieValue("user") String user*/){
+        AFD afd = userData.get(uuid);
         Boolean aceita = afd.Aceita(word);
-        System.out.println(user);
+        System.out.println(uuid);
         System.out.println(word+ ". aceita: "+ aceita);
         return ResponseEntity.ok(aceita);
     }
