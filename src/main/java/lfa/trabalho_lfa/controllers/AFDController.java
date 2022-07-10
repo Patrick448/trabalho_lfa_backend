@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/afd")
+@CrossOrigin
 public class AFDController {
 
     public static class AFDRequest{
