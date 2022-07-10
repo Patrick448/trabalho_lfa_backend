@@ -3,11 +3,13 @@ package lfa.trabalho_lfa.afds;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.Iterator;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -482,6 +484,31 @@ public class AFN {
 		writer.close();
 	}
 
+
+	public void lerString(String xml) throws Exception {
+		//String xmlPathname = pathArquivo;
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		InputSource is = new InputSource(new StringReader(xml));
+
+		Document doc = db.parse(is);
+
+		Element elem = doc.getDocumentElement();
+		NodeList nl0 = elem.getElementsByTagName("simbolos");
+		NodeList nl1 = elem.getElementsByTagName("estados");
+		NodeList nl2 = elem.getElementsByTagName("estadosFinais");
+		NodeList nl3 = elem.getElementsByTagName("funcaoPrograma");
+		NodeList nl4 = elem.getElementsByTagName("estadoInicial");
+
+		getChildTagValue(0, (Element) nl0.item(0), "elemento");
+		getChildTagValue(1, (Element) nl1.item(0), "elemento");
+		getChildTagValue(2, (Element) nl2.item(0), "elemento");
+		Element eI = (Element) nl4.item(0);
+		estadoInicial = new Estado(eI.getAttribute("valor"));
+
+		getChildTagValue((Element) nl3.item(0), "elemento");
+
+	}
         /**
 	* Le as informaoces de um AFN em um arquivo XML passado como parametro
 	*

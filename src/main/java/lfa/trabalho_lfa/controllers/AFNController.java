@@ -2,6 +2,7 @@ package lfa.trabalho_lfa.controllers;
 
 
 import lfa.trabalho_lfa.afds.AFD;
+import lfa.trabalho_lfa.afds.AFN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +20,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/afn")
+@CrossOrigin
 public class AFNController {
 
 
-    private HashMap<String, AFD> userData = new HashMap<String, AFD>();
+    private HashMap<String, AFN> userData = new HashMap<String, AFN>();
 
     @GetMapping(value="/test")
     public ResponseEntity<String> test(){
@@ -54,13 +56,25 @@ public class AFNController {
         return ResponseEntity.ok("Testando 1 2 3");
     }
 
+    @PostMapping(value="/test2", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> test2(@RequestBody AFDController.AFDRequest afdRequest){
+        AFD a = new AFD();
+        try {
+            a.lerString(afdRequest.afdDef);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+        System.out.println("Test");
+        return ResponseEntity.ok(a.toString() + "\n Aceita: " + a.Aceita(afdRequest.word));
+    }
 
-    @PostMapping(value="/load-afd", consumes = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> loadAFD(@RequestBody String body, @CookieValue String user){
-        AFD afd = new AFD();
+    @PostMapping(value="/load-afn", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> loadAFD(@RequestBody String body, /*@CookieValue String user, */@RequestParam String uuid){
+        AFN afd = new AFN();
         try {
             afd.lerString(body);
-            userData.put(user, afd);
+            userData.put(uuid, afd);
             userData.entrySet().forEach(entry -> {
                 System.out.println(entry.getKey() + " " + entry.getValue());
             });
@@ -72,11 +86,11 @@ public class AFNController {
         return ResponseEntity.ok(afd.toString());
     }
 
-    @GetMapping(value="/accepts/{word}")
-    public ResponseEntity<Boolean> acceptsWord(@PathVariable String word, @CookieValue("user") String user){
-        AFD afd = userData.get(user);
+    @GetMapping(value="/accepts")
+    public ResponseEntity<Boolean> acceptsWord(@RequestParam String word,@RequestParam String uuid /*@CookieValue("user") String user*/){
+        AFN afd = userData.get(uuid);
         Boolean aceita = afd.Aceita(word);
-        System.out.println(user);
+        System.out.println(uuid);
         System.out.println(word+ ". aceita: "+ aceita);
         return ResponseEntity.ok(aceita);
     }
