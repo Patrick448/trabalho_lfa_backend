@@ -1,24 +1,17 @@
 import data from './endpoints.json' assert {type: 'json'};
+import { displayTupla } from './uxfunctions.js'
 
-//hostname + create-uuid
-//load
-//accepts
-console.log(data.create_uuid);
-
+//pending: 
+// -> uuid dinamico + cookies to keep session
+// -> update fetch function to afd/afn
+// -> select file + select type + click carregar button to call function that will populate 5tupla
 
 var fileChooser = document.getElementById('docpicker');
 
-function parseTextAsXml(text) {
-    var parser = new DOMParser(),
-        xmlDom = parser.parseFromString(text, "text/xml");
-        console.log(xmlDom)
-}
-
 function waitForTextReadComplete(reader) {
-    reader.onloadend = function(event) {
+    reader.onloadend = function (event) {
         var text = event.target.result;
-
-        parseTextAsXml(text);
+        sendXML(text);
     }
 }
 
@@ -31,35 +24,26 @@ function handleFileSelection() {
 }
 
 fileChooser.addEventListener('change', handleFileSelection, false);
+
+function sendXML(xml) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+    myHeaders.append("Accept", "*/*");
     
-document.getElementById("afn-btn").addEventListener("click", toggleRadioButton, false);
-document.getElementById("afd-btn").addEventListener("click", toggleRadioButton, false);
-
-function toggleRadioButton() {
-    console.log('teste')
-    if (document.querySelector("#afn-btn").checked) {
-        document.querySelector("#afn-btn").labels[0].classList.add('btn-clicked');
-    }
-    else {
-        document.querySelector("#afn-btn").labels[0].classList.remove('btn-clicked');
-    }
-
-    if (document.querySelector("#afd-btn").checked) {
-        document.querySelector("#afd-btn").labels[0].classList.add('btn-clicked');
-    }
-    else {
-        document.querySelector("#afd-btn").labels[0].classList.remove('btn-clicked');
-    }
+    var raw = xml;
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    postReq(requestOptions);
 }
 
-
-
-async function fetchData() {
-    await fetch(data.hostname + data.create_uuid, {
-        mode: 'no-cors',
-        method: 'get'
-    })
-    .then(response => console.log(response));
+async function postReq(requestOptions) {
+    await fetch("https://trabalho-lfa.herokuapp.com/afd/load-afd?uuid=10101010", requestOptions)
+      .then(response => response.text())
+      .then(result => displayTupla(result))
+      .catch(error => console.log('error', error));
 }
 
-fetchData();

@@ -2,5 +2,5 @@
     "hostname":"https://trabalho-lfa.herokuapp.com",
     "load":"/afd/load-afd",
     "accepts": "/afd/accepts/",
-    "create_uuid": "/user/create-uuid"
+    "create_uuid": "/user/create-uuid/"
 }
