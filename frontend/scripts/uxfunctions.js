@@ -19,6 +19,7 @@ export function toggleRadioButton() {
     }
 }
 
+
 export function displayTupla(tupla) {
     document.querySelector(".automata-tupla-box").innerHTML = tupla;
 }

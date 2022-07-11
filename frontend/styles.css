@@ -136,6 +136,18 @@ input#docpicker {
   background-color: #ebb3a9;
 }
 
+.automata-doc .error-warning {
+  margin: 0 auto;
+  color: rgb(197, 16, 16);
+  margin-top: 10px; 
+
+}
+
+.automata-doc .error-warning.hidden {
+  visibility: hidden;
+  height: 1px;
+}
+
 .automata-wording {
   padding-top: 78px;
   text-align: center;

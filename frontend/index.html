@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Trabalho LFA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,6 +44,7 @@
               >
           </div>
           <button class="submit-automata-btn" type="submit">Carregar</button>
+          <div class="error-warning hidden">*File and type required</div>
         </div>
         <div class="automata-wording">
           <input type="text" id="automata-word" placeholder="Type word" />
@@ -53,7 +54,7 @@
       <div class="right-column">
         <div class="automata-tupla">
           <p>5-tupla:</p>
-          <div class="automata-tupla-box">a</div>
+          <div class="automata-tupla-box"></div>
         </div>
         <div class="automata-graph">
           <p>Gráfico:</p>
@@ -65,6 +66,10 @@
       </div>
     </div>
   </body>
-  <script type="module" src="./script.js"></script>
-  <script type="module" src="./uxfunctions.js"></script>
+  <script type="module" src="./scripts/uxfunctions.js"></script>
+  <script type="module" src="./scripts/uuid.js"></script>
+  <script type="module" src="./scripts/cookieHandler.js"></script>
+  <script type="module" src="./scripts/script.js"></script>
+
+
 </html>
