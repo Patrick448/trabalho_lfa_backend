@@ -11,7 +11,6 @@ if (!user_session) {
 
 //pending: 
 // -> accepts words + js to change accept button
-// -> check if load-afn is working (CORS error)
 
 
 var fileChooser = document.getElementById('docpicker');
@@ -80,6 +79,7 @@ async function postReq(requestOptions, option) {
 function loadingScreen(mode) {
     if (mode) {
         document.querySelector('.lds-roller').style.visibility='visible';
+        window.scrollTo(0, 0);
         document.body.style.overflow = "hidden";
     }
     else {
