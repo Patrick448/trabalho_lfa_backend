@@ -90,11 +90,11 @@ public class AFDController {
     }
 
     @GetMapping(value="/accepts")
-    public ResponseEntity<Boolean> acceptsWord(@RequestParam String word,@RequestParam String uuid /*@CookieValue("user") String user*/){
+    public ResponseEntity<Boolean> acceptsWord(@RequestParam String wordString,@RequestParam String uuid /*@CookieValue("user") String user*/){
         AFD afd = userData.get(uuid);
-        Boolean aceita = afd.Aceita(word);
+        Boolean aceita = afd.Aceita(wordString);
         System.out.println(uuid);
-        System.out.println(word+ ". aceita: "+ aceita);
+        System.out.println(wordString+ ". aceita: "+ aceita);
         return ResponseEntity.ok(aceita);
     }
 
