@@ -27,3 +27,35 @@ export function toggleRadioButton() {
 export function displayTupla(tupla) {
   document.querySelector(".automata-tupla-box").innerHTML = tupla;
 }
+
+
+export function acceptsWord(result, flag) {
+    if (result == 'true') {
+        document.querySelector('.automata-response').classList.add('accepts-lfa')
+        document.querySelector('.automata-response').classList.remove('rejects-lfa')
+    }
+    else{
+        document.querySelector('.automata-response').classList.remove('accepts-lfa')
+        document.querySelector('.automata-response').classList.add('rejects-lfa')
+    }
+
+}
+
+export function clearAcceptButton(flag) {
+    if (!flag) {
+        document.querySelector('.automata-response').classList.remove('accepts-lfa')
+        document.querySelector('.automata-response').classList.remove('rejects-lfa')
+    }
+}
+
+export function loadingScreen(mode) {
+    if (mode) {
+        document.querySelector('.lds-roller').style.visibility='visible';
+        window.scrollTo(0, 0);
+        document.body.style.overflow = "hidden";
+    }
+    else {
+        document.querySelector('.lds-roller').style.visibility='hidden';
+        document.body.style.overflow = "auto";
+    }
+}

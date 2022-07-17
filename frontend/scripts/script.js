@@ -1,5 +1,5 @@
 import data from '../../endpoints.json' assert {type: 'json'};
-import { displayTupla } from './uxfunctions.js'
+import { displayTupla, acceptsWord, clearAcceptButton, loadingScreen } from './uxfunctions.js'
 
 import { getCookie, setCookie } from './cookieHandler.js'
 
@@ -8,21 +8,16 @@ if (!user_session) {
     setCookie();
 }
 
-
-//pending: 
-// -> accepts words + js to change accept button
-
-
 var fileChooser = document.getElementById('docpicker');
 var loadButton = document.querySelector('.submit-automata-btn');
 var loadedFile;
 var loadedFileName;
+let automataOption;
 
 function waitForTextReadComplete(reader) {
     reader.onloadend = function (event) {
         loadedFile = event.target.result;
         document.querySelector(".docpicker-label").innerText = loadedFileName;
-
     }
 }
 
@@ -39,7 +34,6 @@ fileChooser.addEventListener('change', handleFileSelection, false);
 loadButton.addEventListener('click', handleSubmit);
 
 function handleSubmit() {
-    let automataOption;
     if (document.querySelector('.btn-clicked'))
         automataOption = document.querySelector('.btn-clicked').innerText.toLowerCase();
     if (loadedFile && automataOption) {
@@ -50,6 +44,7 @@ function handleSubmit() {
             document.querySelector('.error-warning.hidden').classList.remove('hidden');
     }
 }
+
 
 function sendXML(xml, option) {
     var myHeaders = new Headers();
@@ -67,7 +62,6 @@ function sendXML(xml, option) {
 }
 
 async function postReq(requestOptions, option) {
-    console.log(option)
     loadingScreen(true);
     await fetch(`https://trabalho-lfa.herokuapp.com/${option}/load-${option}?uuid=${user_session}`, requestOptions)
         .then(response => response.text())
@@ -76,25 +70,26 @@ async function postReq(requestOptions, option) {
     loadingScreen(false)
 }
 
-function loadingScreen(mode) {
-    if (mode) {
-        document.querySelector('.lds-roller').style.visibility='visible';
-        window.scrollTo(0, 0);
-        document.body.style.overflow = "hidden";
-    }
-    else {
-        document.querySelector('.lds-roller').style.visibility='hidden';
-        document.body.style.overflow = "auto";
+document.getElementById('automata-word').addEventListener('input', handleWordTyped)
+
+async function handleWordTyped(event) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+    myHeaders.append("Accept", "*/*");
+
+    var userWord = event.target.value;
+    var flag = userWord != '' ? true : false;
+    clearAcceptButton(flag);
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+    if (automataOption && loadedFile && userWord != '') {
+    await fetch(`https://trabalho-lfa.herokuapp.com/${automataOption}/accepts?uuid=${user_session}&wordString=${userWord}`, requestOptions)
+        .then(response => response.text())
+        .then(result => acceptsWord(result, flag))
+        .catch(error => console.log('error', error));
     }
 }
 
-// document.getElementById('automata-word').addEventListener('input', handleWordTyped)
-
-// function handleWordTyped(event) {
-//     console.log(event)
-//     var userWord = event.target.value;
-//     await fetch(`https://trabalho-lfa.herokuapp.com/${option}/accepts?uuid=${user_session}&word=${userWord}`, requestOptions)
-//         .then(response => response.text())
-//         .then(result => console.log(result))
-//         .catch(error => console.log('error', error));
-// }
