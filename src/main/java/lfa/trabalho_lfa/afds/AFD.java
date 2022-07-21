@@ -421,17 +421,6 @@ public class AFD {
 
 		s+="}";
 
-		/*s += "(";
-		s += simbolos.toString();
-		s += ",";
-		s += estados.toString();
-		s += ",";
-		s += this.getFuncaoPrograma().toString();
-		s += ",";
-		s += estadoInicial.toString();
-		s += ",";
-		s += estadosFinais.toString();
-		s += ")";*/
 		return s;
 	}
 }

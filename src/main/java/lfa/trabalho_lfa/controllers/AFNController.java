@@ -96,4 +96,11 @@ public class AFNController {
     }
 
 
+    @GetMapping(value="/getDot")
+    public ResponseEntity<String> generateDot(@RequestParam String uuid ){
+        AFN afn = userData.get(uuid);
+        return ResponseEntity.ok(afn.toDotLanguageString());
+    }
+
+
 }

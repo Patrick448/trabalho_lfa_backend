@@ -565,6 +565,28 @@ public class AFN {
 			}
 		}
 	}
+
+	public String toDotLanguageString(){
+		String s = "digraph G { bgcolor=transparent; node[shape=circle]; ";
+
+		s+="start -> "+estadoInicial.toString()+"; start [shape=point, style=invis];";
+		for(Object e : estadosFinais.getElementos()){
+			s+=e.toString() +"[shape=doublecircle];";
+		}
+		/*for(Object e : estados.getElementos()){
+			s+=e.toString() +" ;";
+		}	*/
+
+		for(Object o : this.getFuncaoPrograma().getElementos()){
+			TransicaoN t = (TransicaoN)o;
+			s+=t.getOrigem() + "->"+t.getDestino()+"[label=\""+ t.getSimbolo()+"\"];";
+		}
+
+		s+="}";
+
+		return s;
+	}
+
 	private void getChildTagValue(Element elem, String tagName)
 			throws Exception {
 		ConjuntoEstados ce = new ConjuntoEstados();
