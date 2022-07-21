@@ -401,4 +401,37 @@ public class AFD {
         saida.close();
         writer.close();
     }
+
+
+	public String toDotLanguageString(){
+		String s = "digraph G { bgcolor=transparent; node[shape=circle]; ";
+
+		s+="start -> "+estadoInicial.toString()+"; start [shape=point, style=invis];";
+		for(Object e : estadosFinais.getElementos()){
+			s+=e.toString() +"[shape=doublecircle];";
+		}
+		/*for(Object e : estados.getElementos()){
+			s+=e.toString() +" ;";
+		}	*/
+
+		for(Object o : this.getFuncaoPrograma().getElementos()){
+			TransicaoD t = (TransicaoD)o;
+			s+=t.getOrigem() + "->"+t.getDestino()+"[label=\""+ t.getSimbolo()+"\"];";
+		}
+
+		s+="}";
+
+		/*s += "(";
+		s += simbolos.toString();
+		s += ",";
+		s += estados.toString();
+		s += ",";
+		s += this.getFuncaoPrograma().toString();
+		s += ",";
+		s += estadoInicial.toString();
+		s += ",";
+		s += estadosFinais.toString();
+		s += ")";*/
+		return s;
+	}
 }

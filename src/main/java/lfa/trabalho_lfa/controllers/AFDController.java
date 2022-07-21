@@ -98,6 +98,12 @@ public class AFDController {
         return ResponseEntity.ok(aceita);
     }
 
+    @GetMapping(value="/getDot")
+    public ResponseEntity<String> generateDot(@RequestParam String uuid ){
+        AFD afd = userData.get(uuid);
+        return ResponseEntity.ok(afd.toDotLanguageString());
+    }
+
 
     /*@GetMapping
     public ResponseEntity<List<ContratoDTO>> findAll(Pageable pageable){
